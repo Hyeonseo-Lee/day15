@@ -1,48 +1,46 @@
-## 함수 선언 부분 ##
-def print_Poly(px):
-    term = len(px) - 1  # 최고차항 숫자 = 배열길이-1
-    poly_Str = "P(x) = "
+def print_poly(px, tx):
+    """
+    다항식을 포맷에 맞게 출력하는 함수
+    :param px: 계수를 원소로 가지고 있는 list
+    :param tx: 차수를 원소로 가지고 있는 list
+    :return: 다항식 문자열
+    """
+    poly_str = "P(x) = "
 
     for i in range(len(px)):
-        coef = px[i]  # 계수
+        term = tx[i]
+        coef = px[i]
+        if coef >= 0:
+            poly_str = poly_str + "+"
 
-        # if coef >= 0:
-        #     poly_Str = poly_Str + "+"
+        poly_str = poly_str + f'{coef}x^{term} '
 
-        if i > 0 and coef > 0:
-            poly_Str = poly_Str + "+"
-        elif coef == 0:
-            term = term - 1
-            continue
-        poly_Str = poly_Str + f'{coef}x^{term}'
-        term = term - 1
-
-    return poly_Str
+    return poly_str
 
 
-def calc_poly(xVal, p_x):
-    ret_value = 0
-    term = len(p_x) - 1
+def calc_poly(x_val, px, tx):
+    """
+    다항식의 산술연산을 하는 함수
+    :param x_val: x값 integer
+    :param px: 계수를 원소로 가지고 있는 list
+    :param tx: 차수를 원소로 가지고 있는 list
+    :return: 다항식 계산 결과 값 integer
+    """
+    return_val = 0
 
     for i in range(len(px)):
-        coef = p_x[i]
-        ret_value = ret_value + coef * xVal ** term
-        term -= 1
+        term = tx[i]
+        coef = px[i]
+        return_val = return_val + coef * x_val ** term
 
-    return ret_value
+    return return_val
 
 
+px = [3, -4, 5]
+tx = [300, 20, 0]
 
-px = [3, -4, 0, 6]
-
-## 메인 코드 부분 ##
 if __name__ == "__main__":
-    pStr = print_Poly(px)
-    print(pStr)
+    print(print_poly(px, tx))
 
-    x_value = int(input("X 값-->"))
-
-    px_value = calc_poly(x_value, px)
-    print(px_value)
-
-
+    x_value = int(input("X 값 : "))
+    print(calc_poly(x_value, px, tx))
