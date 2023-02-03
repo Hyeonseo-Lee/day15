@@ -1,46 +1,33 @@
-def print_poly(px, tx):
-    """
-    다항식을 포맷에 맞게 출력하는 함수
-    :param px: 계수를 원소로 가지고 있는 list
-    :param tx: 차수를 원소로 가지고 있는 list
-    :return: 다항식 문자열
-    """
-    poly_str = "P(x) = "
+def find_and_insert_data(pokemon,strength):
+    findPos = -1
+    for i in range(len(pokemon_list)):
+        pair = pokemon_list[i]
+        if strength>=pair[1]:
+            findPos=i
+            break
+        if findPos == -1:
+            findPos = len(pokemon_list)
 
-    for i in range(len(px)):
-        term = tx[i]
-        coef = px[i]
-        if coef >= 0:
-            poly_str = poly_str + "+"
+    insert_data(findPos, (pokemon, strength))
+def insert_data(position,friend):
 
-        poly_str = poly_str + f'{coef}x^{term} '
+    if position<0 or position>len(pokemon_list):
+        print("데이터가 삽입할 범위를 벗어났습니다.")
+        return
+    pokemon_list.append(None)
 
-    return poly_str
+    for i in range(len(pokemon_list)-1,position,-1):
 
+        pokemon_list[i] = pokemon_list[i - 1]
+        pokemon_list[i-1] =None
+    pokemon_list[position] = friend
 
-def calc_poly(x_val, px, tx):
-    """
-    다항식의 산술연산을 하는 함수
-    :param x_val: x값 integer
-    :param px: 계수를 원소로 가지고 있는 list
-    :param tx: 차수를 원소로 가지고 있는 list
-    :return: 다항식 계산 결과 값 integer
-    """
-    return_val = 0
-
-    for i in range(len(px)):
-        term = tx[i]
-        coef = px[i]
-        return_val = return_val + coef * x_val ** term
-
-    return return_val
+pokemon_list = [['피카츄',200],['라이츄',150],['파이리',90],['꼬부기',30],['이상해',15]]
 
 
-px = [3, -4, 5]
-tx = [300, 20, 0]
-
-if __name__ == "__main__":
-    print(print_poly(px, tx))
-
-    x_value = int(input("X 값 : "))
-    print(calc_poly(x_value, px, tx))
+if __name__=="__main__":
+    while True:
+        data = input("추가할 포켓몬 -->")
+        count = int(input("체력 -->"))
+        find_and_insert_data(data,count)
+        print(pokemon_list)
