@@ -23,19 +23,47 @@ def delete_data(idx):
     len_pokemons = len(pokemons)
     pokemons[idx] = None
 
-    for i in range(idx + 1, len_pokemons):
-        pokemons[i] = None
-
-    for i in range(idx, 5):
+    for _ in range(len_pokemons - idx):
         pokemons.pop()
 
+    #self 3-1
+    # for i in range(idx + 1, len_pokemons):
+    #     pokemons[i] = None
+    #
+    # for i in range(idx, 5):
+    #     pokemons.pop()
+
+def add_data(pokemon):
+
+    pokemons.append(None)
+    pokemons[len(pokemons)-1] = pokemon
+
+pokemons = []
+menu = -1
 
 if __name__ == "__main__":
 
-    print(pokemons)
-    #insert_data(2, '거북왕')
-    delete_data(1)
-    print(pokemons)
-    #insert_data(6, '어니부기')
-    print(pokemons)
+    while True:
 
+        menu = input("1: 추가, 2: 삽입, 3: 삭제, 4: 종료--> ")
+
+        if (menu == '1'):
+            data = input("추가할 데이터--> ")
+            add_data(data)
+            print(pokemons)
+        elif (menu == '2'):
+            idx = int(input("삽입할 위치--> "))
+            data = input("추가할 데이터--> ")
+            insert_data(idx, data)
+            print(pokemons)
+        elif (menu == '3'):
+            idx = int(input("삭제할 위치--> "))
+            delete_data(idx)
+            print(pokemons)
+        elif (menu == '4'):
+            print(pokemons)
+            exit()
+            #break
+        else:
+            print("menu에서 고르시오")
+            continue
